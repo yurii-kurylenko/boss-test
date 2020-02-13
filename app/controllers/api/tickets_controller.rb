@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class TicketsController < ApiController
     def create

@@ -1,0 +1,64 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - config/**/*
+    - Gemfile
+    - 'spec/**/*'
+    - 'lib/tasks/**/*'
+    - 'bin/**/*'
+
+  DisplayCopNames: true
+
+Metrics/BlockLength:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Style/SymbolArray:
+  Enabled: true
+  EnforcedStyle: brackets
+
+Documentation:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Max: 150
+
+Style/AsciiComments:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  EnforcedStyle: no_empty_lines
+
+Style/GlobalVars:
+  Enabled: false
+
+Naming/VariableNumber:
+  EnforcedStyle: normalcase
+
+Style/WordArray:
+  Enabled: false
+
+Style/NumericPredicate:
+  EnforcedStyle: comparison
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/ZeroLengthPredicate:
+  Enabled: false
+
+Style/NumericLiterals:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Lint/NestedMethodDefinition:
+  Enabled: false

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CreateTicketDto
   attr_reader :request_number, :sequence_number, :request_type, :response_due_datetime,
-    :primary_service_sa_code, :additional_service_sa_codes, :well_known_text, :excavator
+              :primary_service_sa_code, :additional_service_sa_codes, :well_known_text, :excavator
 
   def initialize(ticket_data)
     @request_number = ticket_data['RequestNumber']
@@ -10,7 +12,7 @@ class CreateTicketDto
     @response_due_datetime = response_due_datetime_str ? DateTime.parse(response_due_datetime_str) : nil
     @primary_service_sa_code = ticket_data.dig('ServiceArea', 'PrimaryServiceAreaCode', 'SACode')
     @additional_service_sa_codes = ticket_data.dig('ServiceArea', 'AdditionalServiceAreaCodes', 'SACode')
-    @well_known_text = ticket_data.dig('ExcavationInfo','DigsiteInfo', 'WellKnownText')
+    @well_known_text = ticket_data.dig('ExcavationInfo', 'DigsiteInfo', 'WellKnownText')
     @excavator = build_excavator(ticket_data.fetch('Excavator', {}))
   end
 
@@ -42,7 +44,7 @@ class CreateTicketDto
       excavator_data.fetch('Address'),
       excavator_data.fetch('City'),
       excavator_data.fetch('State'),
-      excavator_data.fetch('Zip'),
+      excavator_data.fetch('Zip')
     ].join(', ')
   end
 end
