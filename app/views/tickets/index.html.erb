@@ -1,0 +1,9 @@
+<h1>Tickets#index</h1>
+<p>
+  <div class="alert alert-info" role="alert">
+    A simple info alert—check it out!
+  </div>
+  <% for ticket in @tickets %>
+    <%= ticket.id %>
+  <% end  %>
+</p>

@@ -1,0 +1,55 @@
+version: '2'
+
+environment:
+
+compose:
+  files:
+    - docker-compose.yml
+
+interaction:
+  bash:
+    service: rails
+    command: /bin/bash
+    compose_run_options: [no-deps]
+
+  bundle:
+    service: rails
+    command: bundle
+    compose_run_options: [no-deps]
+
+  rake:
+    service: rails
+    command: bundle exec rake
+
+  rails:
+    service: rails
+    command: bundle exec rails
+    subcommands:
+      g:
+        service: rails
+        compose_run_options: [no-deps]
+      s:
+        service: rails
+        compose_run_options: [service-ports]
+
+  rspec:
+    service: rails
+    environment:
+      RAILS_ENV: test
+    command: bundle exec rspec
+
+  rubocop:
+    service: rails
+    command: rubocop
+    compose_run_options: [no-deps]
+
+  psql:
+    service: rails
+    command: psql -h postgres -U postgres -d postgres
+
+
+provision:
+  - dip compose down --volumes
+  - dip compose up -d postgres
+  - dip bundle install
+  - dip rails db:create db:migrate
