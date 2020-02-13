@@ -1,2 +1,85 @@
-<h1>Tickets#show</h1>
-<p>Find me in app/views/tickets/show.html.erb</p>
+<h1>Ticket ID: <%= @ticket.id %> </h1>
+<div class="row">
+  <div class="sm-6">
+    <div class="raw">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Attribute</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td>Request number</td>
+            <td><%= @ticket.request_number %></td>
+          </tr>
+          <tr >
+            <td>Sequence number</td>
+            <td><%= @ticket.sequence_number %></td>
+          </tr>
+          <tr >
+            <td>Request type</td>
+            <td><%= @ticket.request_type %></td>
+          </tr>
+          <tr >
+            <td>Response due datetime</td>
+            <td><%= @ticket.response_due_datetime %></td>
+          </tr>
+          <tr >
+            <td>Primary service sa code</td>
+            <td><%= @ticket.primary_service_sa_code %></td>
+          </tr>
+          <tr >
+            <td>Additional service sa codes</td>
+            <td><%= @ticket.additional_service_sa_codes %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="raw">
+     <h2>Excavator</h2>
+     <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Attribute</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td>Company name</td>
+            <td><%= @ticket.excavator.company_name %></td>
+          </tr>
+          <tr >
+            <td>Crew on site</td>
+            <td><%= @ticket.excavator.crew_on_site %></td>
+          </tr>
+          <tr >
+            <td>Address</td>
+            <td><%= @ticket.excavator.address %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <%= link_to 'Back', :back %>
+  </div>
+  <div class="sm-6">
+    <div id="mapid" style="height: 500px; width: 500px;"></div>
+  </div>
+</div>
+
+<script type='text/javascript'>
+  var MAP_ID = 'mapid'
+  var polygonStr = "<%= @ticket.well_known_text %>"
+  var polygonCoordinates = polygonStr.match(/POLYGON\(\((.*)\)\)/)[1].split(',').map(str => str.split(' '))
+  var map = L.map(MAP_ID, {
+    zoom: 13
+  });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  var polygon = L.polygon(polygonCoordinates, {color: 'red'}).addTo(map);
+  map.fitBounds(polygon.getBounds());
+</script>
